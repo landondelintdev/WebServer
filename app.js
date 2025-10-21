@@ -1,6 +1,7 @@
 import express from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
+import hbs from "hbs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -8,11 +9,12 @@ const __dirname = dirname(__filename);
 const app = express();
 const port = 8080;
 
-//TODO: require('hbs');
-app.set("view engine", "hbs");
-
 // Middleware: servir contenido estático
 app.use(express.static(join(__dirname, "public")));
+
+//Handlebars
+app.set("view engine", "hbs");
+hbs.registerPartials(__dirname + "/views/partials", function (err) {});
 
 app.get("/", (req, res) => {
   res.render("home", {
