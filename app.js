@@ -8,8 +8,18 @@ const __dirname = dirname(__filename);
 const app = express();
 const port = 8080;
 
+//TODO: require('hbs');
+app.set("view engine", "hbs");
+
 // Middleware: servir contenido estático
 app.use(express.static(join(__dirname, "public")));
+
+app.get("/", (req, res) => {
+  res.render("home", {
+    nombre: "Donovan",
+    titulo: "Curso de Node",
+  });
+});
 
 app.get("/index", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
